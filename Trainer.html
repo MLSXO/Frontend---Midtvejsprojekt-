@@ -1,27 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Pokemon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokebase - Trainers</title>
     <link rel="stylesheet" href="poke.css">
+    <link rel="stylesheet" href="trainer.css">
 </head>
+
 <body>
+
 <header>
     <div class="container header-content">
+
         <div class="header-title">
-            <img src="pokebase-logo.png" alt="Pokebase" class="logo">
+            <a href="Pokebase.html">
+                <img src="pokebase-logo.png"
+                     alt="Pokebase"
+                     class="logo">
+            </a>
         </div>
+
         <nav>
             <a href="Pokebase.html">Home</a>
             <a href="Dashboard.html">Dashboard</a>
         </nav>
+
     </div>
-    <main class="container">
 </header>
 
+
+<main class="container">
+
+    <section class="trainer-section">
+
+        <h1>Trainers</h1>
+
+        <p>
+            Create a trainer, select a trainer to see their Pokémon,
+            and add new Pokémon to their team.
+        </p>
+
+        <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+        <div class="trainer-layout">
+
+            <div class="trainer-column">
+
+                <h2>All trainers</h2>
+
+                <div id="trainer-list"></div>
+
+                <h2>Create a new trainer</h2>
+
+                <form id="createTrainerForm" class="trainer-form" novalidate>
+
+                    <label>
+                        Trainer name
+                        <input type="text" id="trainerName" maxlength="50" placeholder="e.g. Ash">
+                    </label>
+
+                    <label>
+                        Age
+                        <input type="number" id="trainerAge" min="0" max="120" placeholder="e.g. 10">
+                    </label>
+
+                    <label>
+                        Hometown
+                        <input type="text" id="trainerHometown" maxlength="50" placeholder="e.g. Pallet Town">
+                    </label>
+
+                    <button type="submit">Create trainer</button>
+
+                </form>
+
+            </div>
+
+            <div class="trainer-column">
+
+                <h2 id="selected-trainer-title">Select a trainer</h2>
+
+                <form id="addPokemonForm" class="trainer-form" novalidate hidden>
+
+                    <label>
+                        Add a Pokémon
+                        <select id="pokemonSelect">
+                            <option value="">Loading Pokémon...</option>
+                        </select>
+                    </label>
+
+                    <button type="submit">Add Pokémon</button>
+
+                </form>
+
+                <div id="trainer-pokemon-list"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
 <footer id="info">
+
     <div class="container">
-        <h2> Group/creators info</h2>
+
+        <h2>Group/creators info</h2>
+
         <div class="group">
             <ul>
                 <li>Marcus Larn Sperling</li>
@@ -30,8 +118,12 @@
                 <li>John</li>
             </ul>
         </div>
+
     </div>
-    <main class="container">
+
 </footer>
+
+<script src="Trainer.js"></script>
+
 </body>
 </html>
