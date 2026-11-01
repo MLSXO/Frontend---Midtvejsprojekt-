@@ -1,3 +1,7 @@
+#Screenshots 
+- https://docs.google.com/document/d/1eBUwOFHsgZOMGOtz2M4mKh7oXTGrot_c9JLSak25wBs/edit?usp=sharing
+
+
 # Pokébase – Frontend
 
 Frontend til vores midtvejsprojekt Pokébase. Hjemmesiden viser Pokémon-data fra vores Express-API og giver brugeren mulighed for at søge efter Pokémon, se trainers, oprette trainers og tilføje Pokémon til dem.
