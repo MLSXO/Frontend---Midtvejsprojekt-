@@ -71,8 +71,6 @@ async function getPokemon(url = "http://localhost:3000/pokemons") {
 }
 
 
-// SEARCH BUTTON
-
 document.getElementById("searchButton").addEventListener("click", function () {
 
     const name = document.getElementById("searchName").value.trim();
@@ -103,7 +101,6 @@ document.getElementById("searchButton").addEventListener("click", function () {
 });
 
 
-// RESET BUTTON
 
 document.getElementById("resetButton").addEventListener("click", function () {
 
@@ -115,7 +112,5 @@ document.getElementById("resetButton").addEventListener("click", function () {
 
 });
 
-
-// LOAD ALL POKEMON WHEN PAGE OPENS
 
 getPokemon();
