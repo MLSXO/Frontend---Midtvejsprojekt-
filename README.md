@@ -98,4 +98,4 @@ Frontend---Midtvejsprojekt-/
 - Marcus Larn Sperling
 - Emil Frost
 - Nikolaj Falck Gutfeld
-- John
+- John Bærendsen
