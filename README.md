@@ -1,13 +1,8 @@
-#Screenshots 
-- https://docs.google.com/document/d/1eBUwOFHsgZOMGOtz2M4mKh7oXTGrot_c9JLSak25wBs/edit?usp=sharing
-
-
 # Pokébase – Frontend
 
-Frontend til vores midtvejsprojekt Pokébase. Hjemmesiden viser Pokémon-data fra vores Express-API og giver brugeren mulighed for at søge efter Pokémon, se trainers, oprette trainers og tilføje Pokémon til dem.
+Frontend til midtvejsprojektet Pokébase. Hjemmesiden viser data fra projektets Express-API og giver brugeren mulighed for at søge efter Pokémon, administrere trainers og se statistik i Dashboardet.
 
-Backend-repository:  
-https://github.com/MLSXO/Backend---Midtvejsprojekt-
+[Backend-repository](https://github.com/MLSXO/Backend---Midtvejsprojekt-)
 
 ## Teknologier
 
@@ -15,6 +10,7 @@ https://github.com/MLSXO/Backend---Midtvejsprojekt-
 - CSS
 - JavaScript
 - Fetch API
+- Chart.js
 
 ## Funktioner
 
@@ -22,12 +18,12 @@ https://github.com/MLSXO/Backend---Midtvejsprojekt-
 - Søgning efter Pokémon-navn
 - Filtrering efter Pokémon-type
 - Filtrering efter minimum attack
-- Visning af trainers
-- Oprettelse af nye trainers
+- Visning og oprettelse af trainers
 - Tilføjelse af Pokémon til en trainer
+- Dashboard med diagrammer og trainerstatistik
 - Kommunikation med backend gennem `fetch()`
 
-## Installation
+## Installation og start
 
 Klon repositoryet:
 
@@ -36,31 +32,7 @@ git clone https://github.com/MLSXO/Frontend---Midtvejsprojekt-.git
 cd Frontend---Midtvejsprojekt-
 ```
 
-Frontenden kræver ingen npm-installation.
-
-Start først backendserveren på:
-
-```text
-http://localhost:3000
-```
-
-Åbn derefter `Pokebase.html` gennem eksempelvis IntelliJ, WebStorm eller Visual Studio Codes Live Server.
-
-## Forbindelse til backend
-
-Frontenden sender HTTP-forespørgsler til:
-
-```text
-http://localhost:3000
-```
-
-Eksempel:
-
-```js
-fetch("http://localhost:3000/pokemons")
-```
-
-Backendserveren og MySQL-databasen skal derfor køre, før hjemmesiden kan vise data.
+Frontenden kræver ingen npm-installation. Start først backendserveren på `http://localhost:3000`, og åbn derefter `Pokebase.html` gennem eksempelvis WebStorm eller Visual Studio Codes Live Server.
 
 ## Sider
 
@@ -86,74 +58,65 @@ Her kan brugeren:
 
 ### Dashboard.html
 
-Dashboardside til projektets øvrige information og funktionalitet.
+Dashboardet viser:
+
+- Antal Pokémon pr. type i et cirkeldiagram
+- Gennemsnitlig attack pr. type i et søjlediagram
+- Antal Pokémon pr. trainer i en tabel
+
+Chart.js bruges til diagrammerne, mens data hentes fra backendens statistik-endpoints.
+
+## API-integration
+
+Frontenden sender forespørgsler til `http://localhost:3000`.
+
+| Metode | Endpoint | Funktion |
+|---|---|---|
+| GET | `/pokemons` | Henter alle Pokémon |
+| GET | `/pokemon-name?name=pika` | Søger efter navn |
+| GET | `/pokemon-type?type=Fire` | Søger efter type |
+| GET | `/pokemon-attack?attack=80` | Filtrerer efter minimum attack |
+| GET | `/trainers` | Henter trainers |
+| GET | `/trainers/:id/pokemons` | Henter en trainers Pokémon |
+| POST | `/trainers` | Opretter en trainer |
+| POST | `/trainers/:id/pokemons` | Tilføjer en Pokémon |
+| GET | `/stats/types` | Henter antal Pokémon pr. type |
+| GET | `/stats/average-attack` | Henter gennemsnitlig attack pr. type |
+| GET | `/stats/trainers` | Henter antal Pokémon pr. trainer |
+
+## Dashboardets beregninger
+
+En Pokémon tæller med i både sin primære og sekundære type, men kun én gang i samme type. Derfor kan summen i cirkeldiagrammet være større end det samlede antal Pokémon.
+
+Gennemsnitlig attack beregnes for hver type og afrundes til to decimaler. Manglende attack-værdier tæller ikke som nul.
+
+Trainer-tabellen viser alle trainers, også dem der endnu ikke har Pokémon. Dashboardet viser desuden loading-, tom- og fejltilstande for de enkelte datakald.
 
 ## Projektstruktur
 
 ```text
 Frontend---Midtvejsprojekt-/
+├── vendor/
+│   ├── Chart.js-LICENSE.md
+│   └── chart.umd.js
 ├── Dashboard.html
+├── Dashboard.js
 ├── Pokebase.html
 ├── Pokebase.js
 ├── Trainer.html
 ├── Trainer.js
 ├── poke.css
 ├── trainer.css
-└── pokebase-logo.png
+├── pokebase-logo.png
+├── .gitignore
+└── README.md
 ```
 
-## API-integration
+## Screenshots
 
-Frontenden bruger blandt andet følgende endpoints:
+[Se frontendens screenshots](https://docs.google.com/document/d/1eBUwOFHsgZOMGOtz2M4mKh7oXTGrot_c9JLSak25wBs/edit?usp=sharing)
 
-| Metode | Endpoint | Funktion |
-|---|---|---|
-| GET | `/pokemons` | Henter alle Pokémon |
-| GET | `/pokemon-name` | Søger efter navn |
-| GET | `/pokemon-type` | Søger efter type |
-| GET | `/pokemon-attack` | Filtrerer efter attack |
-| GET | `/trainers` | Henter trainers |
-| GET | `/trainers/:id/pokemons` | Henter trainerens Pokémon |
-| POST | `/trainers` | Opretter en trainer |
-| POST | `/trainers/:id/pokemons` | Tilføjer en Pokémon |
-
-## Screenshots og video
-
-Til den endelige aflevering tilføjes:
-
-- Screenshot af Pokémon-oversigten
-- Screenshot af søgefunktionen
-- Screenshot af trainersiden
-- Link til demonstrationsvideo
-
-
-# Dashboard til Pokébase
-
-Dashboardet viser tre statistikker fra vores database:
-
-| Statistik | Visning | Endpoint |
-| --- | --- | --- |
-| Antal Pokémon pr. type | Cirkeldiagram | `GET /stats/types` |
-| Gennemsnitlig attack pr. type | Søjlediagram | `GET /stats/average-attack` |
-| Antal Pokémon pr. trainer | Tabel | `GET /stats/trainers` |
-
-JavaScript henter data fra backend med `fetch()`. Chart.js bruges til diagrammerne. Dashboardet bruger projektets eksisterende CSS og navigation.
-
-## Sådan beregnes statistikken
-
-En Pokémon tæller med i både sin primære og sekundære type, men kun én gang i samme type. Derfor kan summen i cirkeldiagrammet være større end antallet af Pokémon.
-
-Gennemsnitlig attack beregnes for hver type og afrundes til to decimaler. Manglende attack-værdier tæller ikke som 0.
-
-Tabellen viser alle trainers, også dem med 0 Pokémon. Den tæller forskellige Pokémon-arter hos hver trainer.
-
-SQL-forespørgslerne er forklaret i backendens README
-
-## Loading, tomme resultater og fejl
-
-Mens data hentes, vises en loading-besked. Hvis et endpoint svarer med en tom liste, vises en besked om, at der ikke er data.
-
-Hvis API'et eller databasen fejler, vises en forståelig fejlbesked. De andre statistikker kan stadig vises, selvom ét kald fejler.
+Screenshot-dokumentationen viser Pokémon-oversigten, søgefunktionerne, trainersiden, oprettelse og tilknytning af Pokémon samt Dashboardet.
 
 ## Gruppemedlemmer
 
